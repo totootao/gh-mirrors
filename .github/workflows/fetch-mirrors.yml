@@ -1,0 +1,37 @@
+name: fetch-mirrors
+
+on:
+  schedule:
+    - cron: "0 1 * * *"   # 每天 UTC 01:00（北京时间 09:00）
+  workflow_dispatch: {}    # 支持手动触发
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 安装依赖
+        run: pip install requests
+
+      - name: 采集并实测加速节点
+        run: python scripts/fetch-mirrors.py
+
+      - name: 提交更新
+        run: |
+          git config user.name "totootao"
+          git config user.email "totootao@qq.com"
+          if [[ -n "$(git status --porcelain data/mirrors.json)" ]]; then
+            git add data/mirrors.json
+            git commit -m "每日更新 mirrors.json ($(date -u '+%Y-%m-%d %H:%M UTC'))"
+            git push
+          else
+            echo "清单无变化，跳过提交"
+          fi

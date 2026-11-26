@@ -105,12 +105,35 @@ def test_node(host):
     return host, False, None
 
 
+MAX_CONSECUTIVE_FAILS = 3  # 老池节点连续失败这么多次才移入 dead（防误杀时好时坏的节点）
+
+
+def load_previous():
+    """读仓库里现有的 mirrors.json（CI 每次构建前已 checkout 到位），无则返回 None。"""
+    try:
+        with open("data/mirrors.json", encoding="utf-8") as f:
+            d = json.load(f)
+        return d if isinstance(d, dict) and isinstance(d.get("usable"), list) else None
+    except Exception:
+        return None
+
+
 def main():
+    prev = load_previous()
+    prev_usable = set(prev["usable"]) if prev else set()
+    prev_dead = set(prev.get("dead", [])) if prev else set()
+    prev_failing = prev.get("failing", {}) if prev else {}
+
     merged = collect()
     # 固定加入自有代理
     merged.add(OWN_PROXY)
+    # 累积保留：老池的可用节点、观察期节点、不可用节点全部保留参测
+    #（不可用节点复活即自动回到可用列表，清单只增不减）
+    merged |= prev_usable
+    merged |= prev_dead
     hosts = sorted(h for h in merged if HOST_RE.match(h))
-    print(f"合并去重后共 {len(hosts)} 个候选节点，开始实测可用性……")
+    print(f"合并去重后共 {len(hosts)} 个候选节点（老池可用 {len(prev_usable)}，老池不可用 {len(prev_dead)}）")
+    print("开始实测可用性……")
 
     results = {}
     with cf.ThreadPoolExecutor(max_workers=24) as ex:
@@ -119,19 +142,39 @@ def main():
             if sec is not None:
                 results[host]["latency"] = round(sec, 3)
 
-    usable = [h for h in hosts if results[h]["ok"]]
-    dead = [h for h in hosts if not results[h]["ok"]]
-    print(f"实测可用 {len(usable)} / {len(hosts)}")
-    print(f"不可用 {len(dead)} 个")
+    passed = [h for h in hosts if results[h]["ok"]]
+    failing = {}   # 观察期：老池可用节点今天没通过，但连续失败次数未达阈值
+    probation = [] # 观察期节点，仍留在 usable 列表（排在实测通过节点之后）
+    dead = []
+    for h in hosts:
+        if results[h]["ok"]:
+            continue  # 通过，清零观察计数（不进 failing）
+        if h in prev_usable:
+            n = prev_failing.get(h, 0) + 1
+            if n >= MAX_CONSECUTIVE_FAILS:
+                dead.append(h)
+            else:
+                probation.append(h)
+                failing[h] = n
+        else:
+            # 新发现节点首测失败 / 老池不可用节点继续失败 → 进 dead（每天仍重新参测，复活即回可用）
+            dead.append(h)
+    # 可用列表 = 今天实测通过的（按延迟升序） + 观察期老节点（保持稳定次序）
+    usable = sorted(passed, key=lambda h: results[h].get("latency", 999.0)) + \
+        [h for h in prev_usable if h in probation]
+    dead = sorted(set(dead))
+    print(f"实测通过 {len(passed)}，观察期 {len(probation)}，不可用 {len(dead)} / {len(hosts)}")
 
     out = {
         "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
         "ownProxy": OWN_PROXY,
+        "maxConsecutiveFails": MAX_CONSECUTIVE_FAILS,
         "total": len(hosts),
         "usableCount": len(usable),
         "usable": usable,
+        "failing": failing,
         "dead": dead,
-        "latency": {h: results[h]["latency"] for h in usable if "latency" in results[h]},
+        "latency": {h: results[h]["latency"] for h in passed if "latency" in results[h]},
     }
     with open("data/mirrors.json", "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)

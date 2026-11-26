@@ -1,12 +1,16 @@
 #!/usr/bin/env python3
-"""采集公共 GitHub 加速节点，生成 mirrors.json（复刻 LX-M-Music.github.io 的 fetch-mirrors.mjs）。
+"""采集公共 GitHub 加速节点，生成 mirrors.json（复刻 LX-M-Music.github.io 的 fetch-mirrors.mjs 并增强）。
 
-数据来源：
+数据来源（多源合并去重）：
   1. moretools.app 的 github-proxy 页面（SSR HTML 内嵌镜像列表）
   2. github.akams.cn（Next.js chunk 中的节点列表）
-另外：
-  - 把自有代理 ghproxy.totootao.top 固定加入
-  - 对每个节点做真实下载实测（1MB 文件取头 256KB），标记可用性
+  3. 自有代理 ghproxy.totootao.top 固定加入
+  4. 老清单累积保留（可用节点不轻易出局，连续 3 次失败才移入 dead；dead 节点每天复测可复活）
+
+每个节点实测三种代理能力（App 检查更新走 API、下载 APK 走 release、兜底走 raw）：
+  raw     = 代理 raw.githubusercontent.com 文件
+  release = 代理 github.com releases/download 探针资产
+  api     = 代理 api.github.com 接口
 """
 import json
 import re
@@ -23,9 +27,13 @@ TIMEOUT = 20
 HOST_RE = re.compile(
     r"^[a-z0-9](?:[a-z0-9-]*[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)+$", re.I)
 OWN_PROXY = "ghproxy.totootao.top"
-# 用于实测的公开测试文件（repo 内 1MB 左右的固定文件）
-TEST_URL = "https://raw.githubusercontent.com/lyswhut/lx-music-desktop/master/CHANGELOG.md"
-TEST_PROBE = "https://api.github.com/repos/lyswhut/lx-music-desktop"
+MAX_CONSECUTIVE_FAILS = 3  # 老池节点连续失败这么多次才移入 dead（防误杀时好时坏的节点）
+
+# 三能力探针（都指向本仓库，小文件，公共可访问）
+PROBE_URL_RAW = "https://raw.githubusercontent.com/totootao/gh-mirrors/main/probe.txt"
+PROBE_URL_RELEASE = "https://github.com/totootao/gh-mirrors/releases/download/probe/probe.txt"
+PROBE_URL_API = "https://api.github.com/repos/totootao/gh-mirrors"
+PROBE_CONTENT = b"gh-mirrors capability probe"
 
 
 def get_text(url):
@@ -88,24 +96,26 @@ def collect():
 
 
 def test_node(host):
-    """实测节点：能否代理下载 GitHub raw 文件"""
-    for target in (TEST_URL,):
-        url = f"https://{host}/{target}" if "raw.githubusercontent" in target else target
+    """实测节点三种代理能力，返回 (host, caps)；caps: {raw, release, api, latency}。"""
+    caps = {"host": host, "raw": False, "release": False, "api": False, "latency": None}
+    probes = (
+        ("raw", f"https://{host}/{PROBE_URL_RAW}",
+         lambda body: body.startswith(PROBE_CONTENT)),
+        ("release", f"https://{host}/{PROBE_URL_RELEASE}",
+         lambda body: body.startswith(PROBE_CONTENT)),
+        ("api", f"https://{host}/{PROBE_URL_API}",
+         lambda body: b"gh-mirrors" in body[:4096]),
+    )
+    for cap, url, check in probes:
         try:
-            r = requests.get(url, headers={"user-agent": UA},
-                             timeout=(5, 8), stream=True)
-            if r.status_code == 200:
-                chunk = next(r.iter_content(65536), b"")
-                r.close()
-                if chunk and (b"#" in chunk or b"release" in chunk or len(chunk) > 1024):
-                    return host, True, r.elapsed.total_seconds()
-            r.close()
+            r = requests.get(url, headers={"user-agent": UA}, timeout=(5, 8))
+            if r.status_code == 200 and check(r.content):
+                caps[cap] = True
+                if caps["latency"] is None:
+                    caps["latency"] = round(r.elapsed.total_seconds(), 3)
         except Exception:
             pass
-    return host, False, None
-
-
-MAX_CONSECUTIVE_FAILS = 3  # 老池节点连续失败这么多次才移入 dead（防误杀时好时坏的节点）
+    return host, caps
 
 
 def load_previous():
@@ -120,35 +130,36 @@ def load_previous():
 
 def main():
     prev = load_previous()
-    prev_usable = set(prev["usable"]) if prev else set()
+    # 兼容新旧两种 usable 结构（旧为字符串数组，新为对象数组）
+    prev_usable = {n["host"] if isinstance(n, dict) else n for n in prev["usable"]} if prev else set()
     prev_dead = set(prev.get("dead", [])) if prev else set()
     prev_failing = prev.get("failing", {}) if prev else {}
 
     merged = collect()
-    # 固定加入自有代理
     merged.add(OWN_PROXY)
-    # 累积保留：老池的可用节点、观察期节点、不可用节点全部保留参测
-    #（不可用节点复活即自动回到可用列表，清单只增不减）
+    # 累积保留：老池的可用节点、不可用节点全部保留参测（复活即自动回可用列表，清单只增不减）
     merged |= prev_usable
     merged |= prev_dead
     hosts = sorted(h for h in merged if HOST_RE.match(h))
     print(f"合并去重后共 {len(hosts)} 个候选节点（老池可用 {len(prev_usable)}，老池不可用 {len(prev_dead)}）")
-    print("开始实测可用性……")
+    print("开始实测三能力（raw/release/api）……")
 
     results = {}
     with cf.ThreadPoolExecutor(max_workers=24) as ex:
-        for host, ok, sec in ex.map(test_node, hosts):
-            results[host] = {"ok": ok}
-            if sec is not None:
-                results[host]["latency"] = round(sec, 3)
+        for host, caps in ex.map(test_node, hosts):
+            results[host] = caps
 
-    passed = [h for h in hosts if results[h]["ok"]]
-    failing = {}   # 观察期：老池可用节点今天没通过，但连续失败次数未达阈值
-    probation = [] # 观察期节点，仍留在 usable 列表（排在实测通过节点之后）
+    def any_ok(h):
+        c = results[h]
+        return c["raw"] or c["release"] or c["api"]
+
+    passed = [h for h in hosts if any_ok(h)]
+    failing = {}    # 观察期：老池可用节点今天全挂但连续失败未达阈值，仍留在 usable
+    probation = []
     dead = []
     for h in hosts:
-        if results[h]["ok"]:
-            continue  # 通过，清零观察计数（不进 failing）
+        if any_ok(h):
+            continue
         if h in prev_usable:
             n = prev_failing.get(h, 0) + 1
             if n >= MAX_CONSECUTIVE_FAILS:
@@ -157,24 +168,28 @@ def main():
                 probation.append(h)
                 failing[h] = n
         else:
-            # 新发现节点首测失败 / 老池不可用节点继续失败 → 进 dead（每天仍重新参测，复活即回可用）
             dead.append(h)
-    # 可用列表 = 今天实测通过的（按延迟升序） + 观察期老节点（保持稳定次序）
-    usable = sorted(passed, key=lambda h: results[h].get("latency", 999.0)) + \
-        [h for h in prev_usable if h in probation]
+    # usable = 今天实测通过的（按延迟升序，节点对象） + 观察期老节点（保持稳定次序）
+    usable_nodes = [
+        dict(results[h], host=h)
+        for h in sorted(passed, key=lambda h: results[h]["latency"] if results[h]["latency"] is not None else 999.0)
+    ]
+    usable_nodes += [dict(results[h], host=h, latency=None) for h in prev_usable if h in probation]
     dead = sorted(set(dead))
+    n_release = sum(1 for n in usable_nodes if n["release"])
+    n_api = sum(1 for n in usable_nodes if n["api"])
     print(f"实测通过 {len(passed)}，观察期 {len(probation)}，不可用 {len(dead)} / {len(hosts)}")
+    print(f"能力分布：raw {sum(1 for n in usable_nodes if n['raw'])} · release {n_release} · api {n_api}")
 
     out = {
         "generatedAt": time.strftime("%Y-%m-%dT%H:%M:%S+08:00"),
         "ownProxy": OWN_PROXY,
         "maxConsecutiveFails": MAX_CONSECUTIVE_FAILS,
         "total": len(hosts),
-        "usableCount": len(usable),
-        "usable": usable,
+        "usableCount": len(usable_nodes),
+        "usable": usable_nodes,
         "failing": failing,
         "dead": dead,
-        "latency": {h: results[h]["latency"] for h in passed if "latency" in results[h]},
     }
     with open("data/mirrors.json", "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)

@@ -1,65 +1,128 @@
 {
-  "generatedAt": "2026-11-27T09:22:28+08:00",
+  "generatedAt": "2026-11-28T08:38:48+08:00",
   "ownProxy": "ghproxy.totootao.top",
   "maxConsecutiveFails": 3,
   "total": 158,
-  "usableCount": 82,
+  "usableCount": 79,
   "usable": [
     {
       "host": "ghproxy.icu",
       "raw": true,
       "release": true,
       "api": true,
-      "latency": 0.087
+      "latency": 0.063
     },
     {
-      "host": "github.880824.xyz",
+      "host": "git.951959483.xyz",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.087
-    },
-    {
-      "host": "ghfile.geekertao.top",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.092
-    },
-    {
-      "host": "github.zzrbk.xyz",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.092
-    },
-    {
-      "host": "github.788787.xyz",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.099
-    },
-    {
-      "host": "gp.871201.xyz",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.101
+      "latency": 0.068
     },
     {
       "host": "git.820828.xyz",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.102
+      "latency": 0.069
+    },
+    {
+      "host": "gp.871201.xyz",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.073
+    },
+    {
+      "host": "github.boringhex.top",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.075
+    },
+    {
+      "host": "github.tmby.shop",
+      "raw": false,
+      "release": false,
+      "api": true,
+      "latency": 0.075
+    },
+    {
+      "host": "github.788787.xyz",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.077
+    },
+    {
+      "host": "gh.shiina-rimo.cafe",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.082
+    },
+    {
+      "host": "github.880824.xyz",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.083
+    },
+    {
+      "host": "github.zzrbk.xyz",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.085
+    },
+    {
+      "host": "ghproxy.totootao.top",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.086
+    },
+    {
+      "host": "tvv.tw",
+      "raw": true,
+      "release": true,
+      "api": true,
+      "latency": 0.087
+    },
+    {
+      "host": "gh.monlor.com",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.097
+    },
+    {
+      "host": "ghp.keleyaa.com",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.1
     },
     {
       "host": "gh.996986.xyz",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.109
+      "latency": 0.103
+    },
+    {
+      "host": "ghproxy.xzhouqd.com",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.103
+    },
+    {
+      "host": "ghproxy.imciel.com",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.106
     },
     {
       "host": "github.ihnic.com",
@@ -69,522 +132,434 @@
       "latency": 0.109
     },
     {
-      "host": "github.boringhex.top",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.11
-    },
-    {
-      "host": "git.951959483.xyz",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.114
-    },
-    {
-      "host": "hub.ddayh.com",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.123
-    },
-    {
-      "host": "ghp.keleyaa.com",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.127
-    },
-    {
-      "host": "proxy.baguoyuyan.com",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.127
-    },
-    {
-      "host": "ghproxy.totootao.top",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.131
-    },
-    {
-      "host": "gh.monlor.com",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.133
-    },
-    {
-      "host": "tvv.tw",
-      "raw": true,
-      "release": true,
-      "api": true,
-      "latency": 0.142
-    },
-    {
       "host": "gh.198962.xyz",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.156
-    },
-    {
-      "host": "git.yylx.win",
-      "raw": true,
-      "release": true,
-      "api": true,
-      "latency": 0.156
-    },
-    {
-      "host": "gh.chjina.com",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.157
+      "latency": 0.117
     },
     {
       "host": "gh-proxy.com",
       "raw": true,
       "release": true,
       "api": true,
-      "latency": 0.162
+      "latency": 0.124
     },
     {
-      "host": "ghproxy.imciel.com",
+      "host": "hub.ddayh.com",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.168
+      "latency": 0.129
     },
     {
       "host": "fastgit.cc",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.172
+      "latency": 0.135
     },
     {
-      "host": "github.crdz.eu.org",
+      "host": "proxy.baguoyuyan.com",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.176
-    },
-    {
-      "host": "gitproxy.click",
-      "raw": false,
-      "release": false,
-      "api": true,
-      "latency": 0.176
-    },
-    {
-      "host": "jiashu.1win.eu.org",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.176
-    },
-    {
-      "host": "ggg.clwap.dpdns.org",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.179
-    },
-    {
-      "host": "cdn.akaere.online",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.18
-    },
-    {
-      "host": "getgit.love8yun.eu.org",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.184
-    },
-    {
-      "host": "gh.idayer.com",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.202
-    },
-    {
-      "host": "kenyu.ggff.net",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.208
-    },
-    {
-      "host": "ghgo.de5.net",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.215
-    },
-    {
-      "host": "ghproxy.xzhouqd.com",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.243
+      "latency": 0.138
     },
     {
       "host": "gh.my-website.ccwu.cc",
       "raw": true,
       "release": true,
       "api": true,
-      "latency": 0.245
+      "latency": 0.14
     },
     {
       "host": "github.xxlab.tech",
       "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.27
-    },
-    {
-      "host": "gh.noki.icu",
-      "raw": true,
-      "release": true,
-      "api": true,
-      "latency": 0.293
-    },
-    {
-      "host": "ghproxy.sakuramoe.dev",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.296
-    },
-    {
-      "host": "ghfast.top",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.298
-    },
-    {
-      "host": "github.lsdfxdk.nyc.mn",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.307
-    },
-    {
-      "host": "gh.padao.fun",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.313
-    },
-    {
-      "host": "gh-proxy.net",
-      "raw": false,
       "release": false,
-      "api": true,
-      "latency": 0.333
+      "api": false,
+      "latency": 0.141
     },
     {
-      "host": "github.mlmle.cn",
+      "host": "cdn.akaere.online",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.339
+      "latency": 0.144
     },
     {
-      "host": "ghproxy.mirror.skybyte.me",
+      "host": "gh.chjina.com",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.34
+      "latency": 0.145
     },
     {
-      "host": "gh.nxnow.top",
+      "host": "getgit.love8yun.eu.org",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.35
+      "latency": 0.156
+    },
+    {
+      "host": "gh.idayer.com",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.165
+    },
+    {
+      "host": "jiashu.1win.eu.org",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.175
+    },
+    {
+      "host": "ghgo.de5.net",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.183
     },
     {
       "host": "github.1ms.xx.kg",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.35
+      "latency": 0.231
     },
     {
       "host": "down.mxw.xx.kg",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.353
+      "latency": 0.235
     },
     {
-      "host": "gh.07150721.xyz",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.369
-    },
-    {
-      "host": "github.tbap.top",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.369
-    },
-    {
-      "host": "gh.acmsz.top",
+      "host": "gh.noki.icu",
       "raw": true,
       "release": true,
       "api": true,
-      "latency": 0.382
+      "latency": 0.24
+    },
+    {
+      "host": "mousegithubproxy.cc.cd",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.252
+    },
+    {
+      "host": "kenyu.ggff.net",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.257
     },
     {
       "host": "xsadwsd.kdns.fr",
       "raw": true,
       "release": true,
-      "api": true,
-      "latency": 0.404
+      "api": false,
+      "latency": 0.268
     },
     {
-      "host": "gh.dpik.top",
+      "host": "ghproxy.mirror.skybyte.me",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.419
+      "latency": 0.273
     },
     {
-      "host": "github.cnxiaobai.com",
+      "host": "ghfast.top",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.425
+      "latency": 0.276
     },
     {
-      "host": "github.tmby.shop",
+      "host": "gh-proxy.net",
       "raw": false,
       "release": false,
       "api": true,
-      "latency": 0.452
+      "latency": 0.303
     },
     {
       "host": "cdn.gh-proxy.com",
       "raw": true,
       "release": true,
       "api": true,
-      "latency": 0.456
+      "latency": 0.315
     },
     {
-      "host": "gh.shiina-rimo.cafe",
+      "host": "github.cnxiaobai.com",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.462
+      "latency": 0.329
     },
     {
-      "host": "gh.sixyin.com",
+      "host": "ghproxy.sakuramoe.dev",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.465
-    },
-    {
-      "host": "gh.qfmc0721.cc.cd",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.482
-    },
-    {
-      "host": "githubproxy.gohj99.site",
-      "raw": true,
-      "release": false,
-      "api": false,
-      "latency": 0.558
-    },
-    {
-      "host": "gg.z321.cc.cd",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.575
-    },
-    {
-      "host": "gh.inkchills.cn",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.614
-    },
-    {
-      "host": "free.cn.eu.org",
-      "raw": false,
-      "release": true,
-      "api": false,
-      "latency": 0.657
-    },
-    {
-      "host": "gh.39.al",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.694
-    },
-    {
-      "host": "ghm.078465.xyz",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.696
-    },
-    {
-      "host": "mousegithubproxy.cc.cd",
-      "raw": true,
-      "release": true,
-      "api": true,
-      "latency": 0.703
-    },
-    {
-      "host": "g.z321.cc.cd",
-      "raw": true,
-      "release": true,
-      "api": true,
-      "latency": 0.712
-    },
-    {
-      "host": "777.z321.cc.cd",
-      "raw": true,
-      "release": true,
-      "api": true,
-      "latency": 0.746
+      "latency": 0.331
     },
     {
       "host": "ghproxy.felicity.land",
       "raw": true,
       "release": true,
       "api": true,
-      "latency": 0.787
+      "latency": 0.347
     },
     {
-      "host": "git.669966.xyz",
+      "host": "gitproxy.click",
+      "raw": false,
+      "release": false,
+      "api": true,
+      "latency": 0.349
+    },
+    {
+      "host": "github.mlmle.cn",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 0.801
+      "latency": 0.353
     },
     {
-      "host": "git.tangbai.cc",
-      "raw": true,
-      "release": true,
-      "api": false,
-      "latency": 0.838
-    },
-    {
-      "host": "eogh.719831.xyz",
+      "host": "github.tbap.top",
       "raw": true,
       "release": true,
       "api": true,
-      "latency": 1.012
+      "latency": 0.357
     },
     {
-      "host": "ghproxy.053000.xyz",
+      "host": "ghfile.geekertao.top",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 1.087
+      "latency": 0.382
     },
     {
-      "host": "gh.jjj.gv.uy",
+      "host": "github.crdz.eu.org",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 1.114
+      "latency": 0.453
+    },
+    {
+      "host": "github.lsdfxdk.nyc.mn",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.504
+    },
+    {
+      "host": "githubproxy.gohj99.site",
+      "raw": true,
+      "release": false,
+      "api": false,
+      "latency": 0.543
+    },
+    {
+      "host": "ggg.clwap.dpdns.org",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.549
+    },
+    {
+      "host": "gh.padao.fun",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.553
+    },
+    {
+      "host": "g.z321.cc.cd",
+      "raw": true,
+      "release": true,
+      "api": true,
+      "latency": 0.565
+    },
+    {
+      "host": "777.z321.cc.cd",
+      "raw": true,
+      "release": true,
+      "api": true,
+      "latency": 0.57
+    },
+    {
+      "host": "free.cn.eu.org",
+      "raw": false,
+      "release": true,
+      "api": false,
+      "latency": 0.59
+    },
+    {
+      "host": "gh.sixyin.com",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.618
+    },
+    {
+      "host": "gh.07150721.xyz",
+      "raw": true,
+      "release": true,
+      "api": true,
+      "latency": 0.625
+    },
+    {
+      "host": "gh.acmsz.top",
+      "raw": true,
+      "release": true,
+      "api": true,
+      "latency": 0.646
+    },
+    {
+      "host": "git.yylx.win",
+      "raw": true,
+      "release": true,
+      "api": true,
+      "latency": 0.661
+    },
+    {
+      "host": "gh.39.al",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.686
+    },
+    {
+      "host": "gh.qfmc0721.cc.cd",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.726
     },
     {
       "host": "github.ednovas.xyz",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 1.218
+      "latency": 0.813
     },
     {
-      "host": "gh.beimengvv.xyz",
+      "host": "gg.z321.cc.cd",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 1.244
+      "latency": 0.834
+    },
+    {
+      "host": "gh.inkchills.cn",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.839
+    },
+    {
+      "host": "ghm.078465.xyz",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.847
+    },
+    {
+      "host": "git.tangbai.cc",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.873
+    },
+    {
+      "host": "eogh.719831.xyz",
+      "raw": true,
+      "release": true,
+      "api": true,
+      "latency": 0.881
+    },
+    {
+      "host": "ghproxy.053000.xyz",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 0.982
+    },
+    {
+      "host": "gh.jjj.gv.uy",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 1.008
+    },
+    {
+      "host": "git.669966.xyz",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 1.08
     },
     {
       "host": "ghproxy.monkeyray.net",
       "raw": true,
       "release": true,
       "api": true,
-      "latency": 1.29
+      "latency": 1.293
     },
     {
       "host": "gitproxy.127731.xyz",
       "raw": true,
       "release": true,
-      "api": true,
-      "latency": 1.575
+      "api": false,
+      "latency": 1.303
+    },
+    {
+      "host": "gh.beimengvv.xyz",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 1.63
     },
     {
       "host": "ghproxy.net",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 4.501
+      "latency": 5.191
     },
     {
       "host": "g.blfrp.cn",
       "raw": true,
       "release": true,
       "api": false,
-      "latency": 6.652
+      "latency": 5.246
+    },
+    {
+      "host": "gh.nxnow.top",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 5.321
+    },
+    {
+      "host": "gh.dpik.top",
+      "raw": true,
+      "release": true,
+      "api": false,
+      "latency": 5.324
     },
     {
       "host": "proxy.yaoyaoling.net",
       "raw": true,
       "release": false,
       "api": false,
-      "latency": 6.722
-    },
-    {
-      "host": "ghproxy.cn",
-      "raw": false,
-      "release": false,
-      "api": false,
-      "latency": null
-    },
-    {
-      "host": "slink.ltd",
-      "raw": false,
-      "release": false,
-      "api": false,
-      "latency": null
-    },
-    {
-      "host": "ghproxy.cfd",
-      "raw": false,
-      "release": false,
-      "api": false,
-      "latency": null
+      "latency": 5.679
     }
   ],
-  "failing": {
-    "ghproxy.cfd": 2,
-    "ghproxy.cn": 2,
-    "slink.ltd": 2
-  },
+  "failing": {},
   "dead": [
     "30006000.xyz",
     "cf.ghproxy.cc",
@@ -619,6 +594,8 @@
     "ghpr.cc",
     "ghproxy.1888866.xyz",
     "ghproxy.cc",
+    "ghproxy.cfd",
+    "ghproxy.cn",
     "ghproxy.cxkpro.top",
     "ghproxy.fangkuai.fun",
     "ghproxy.mf-dust.dpdns.org",
@@ -659,6 +636,7 @@
     "j.1win.ggff.net",
     "js.jiangss.shop",
     "proxy.atoposs.com",
+    "slink.ltd",
     "www.5555.cab",
     "xiaomo-station.top",
     "y.whereisdoge.work"
